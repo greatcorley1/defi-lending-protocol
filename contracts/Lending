@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+
+contract LendingPool {
+    mapping(address => uint256) public userBalances;
+    event Deposit(address indexed user, uint256 amount);
+
+    function deposit() external payable {
+        require(msg.value > 0, "Deposit must be > 0");
+        userBalances[msg.sender] += msg.value;
+        emit Deposit(msg.sender, msg.value);
+    }
+
+    function getBalance(address user) external view returns (uint256) {
+        return userBalances[user];
+    }
+}
+
